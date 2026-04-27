@@ -12,6 +12,13 @@ export const env = {
         server_database: process.env.RAILWAY_DATABASE,
         database: process.env.MYSQL_DATABASE,
     },
+    dbNew: {
+        host: process.env.MYSQL_HOST_NEW,
+        user: process.env.MYSQL_USER_NEW,
+        port: process.env.MYSQL_PORT_NEW,
+        password: process.env.MYSQL_PASSWORD_NEW,
+        database: process.env.MYSQL_DATABASE_NEW,
+    },
     jwt_secret: process.env.JWT_SECRET,
     apiKey: process.env.API_KEY,
 };
