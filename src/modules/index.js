@@ -3,6 +3,7 @@ import { Router } from "express";
 // import reportesRoutes from "./reportes/reportes.routes.js";
 // import { healthRouter } from "../controllers/health.controller.js";
 import { healthMySQLRouter } from "../controllers/health2.controller.js";
+import mailRoutes from "./mail/mail.routes.js";
 
 
 const router = Router();
@@ -10,6 +11,7 @@ const router = Router();
 // Módulos
 // router.use("/auth", authRoutes);
 // router.use("/reportes", reportesRoutes);
+router.use("/mail", mailRoutes);
 
 // Rutas globales o de infraestructura
 // Sequelize
