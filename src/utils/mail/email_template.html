@@ -1,0 +1,186 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--color-background-tertiary); font-family: var(--font-sans); }
+  .wrapper { padding: 32px 16px; }
+  .email { max-width: 620px; margin: 0 auto; background: var(--color-background-primary); border-radius: 16px; border: 0.5px solid var(--color-border-tertiary); overflow: hidden; }
+  .header { background: #0f172a; padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 22px; font-weight: 500; color: #fff; letter-spacing: 1px; }
+  .logo span { color: #378ADD; }
+  .header-badge { font-size: 11px; color: #378ADD; border: 1px solid #378ADD; border-radius: 20px; padding: 5px 14px; letter-spacing: 0.5px; }
+  .body { padding: 36px 40px; }
+  .intro { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; text-align: center; margin-bottom: 32px; padding: 20px 24px; background: var(--color-background-secondary); border-radius: 12px; }
+  .intro strong { color: var(--color-text-primary); font-weight: 500; }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--color-border-primary); }
+  .section-label::after { content: ''; display: block; flex: 1; height: 0.5px; background: var(--color-border-tertiary); }
+  .grid { display: grid; gap: 8px; margin-bottom: 8px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3-2 { grid-template-columns: 3fr 2fr; }
+  .grid-6-4 { grid-template-columns: 6fr 4fr; }
+  .field { background: var(--color-background-secondary); border-radius: 10px; padding: 12px 16px; border: 0.5px solid var(--color-border-tertiary); }
+  .field-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .field-value { font-size: 13px; color: var(--color-text-primary); font-weight: 400; line-height: 1.4; }
+  .field-value strong { font-weight: 500; }
+  .field.accent { border-left: 3px solid #378ADD; border-radius: 0 10px 10px 0; }
+  .field.danger { border-left: 3px solid var(--color-border-danger); border-radius: 0 10px 10px 0; background: var(--color-background-danger); }
+  .field.danger .field-label { color: var(--color-text-danger); }
+  .sig-box { margin-top: 8px; border: 0.5px dashed var(--color-border-secondary); border-radius: 12px; padding: 28px 24px; text-align: center; background: var(--color-background-secondary); }
+  .sig-placeholder { font-size: 13px; color: var(--color-text-tertiary); font-style: italic; padding: 24px 0; }
+  .sig-line { margin-top: 20px; padding-top: 16px; border-top: 0.5px solid var(--color-border-tertiary); }
+  .sig-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .sig-doc { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
+  .footer { background: var(--color-background-secondary); padding: 28px 40px; text-align: center; border-top: 0.5px solid var(--color-border-tertiary); }
+  .footer-brand { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .footer-sub { font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; }
+  .footer-note { font-size: 11px; color: var(--color-text-tertiary); margin-top: 12px; }
+  @media (max-width: 600px) {
+    .grid-2, .grid-3-2, .grid-6-4 { grid-template-columns: 1fr; }
+    .body { padding: 24px 20px; }
+    .header { padding: 24px 20px; }
+    .footer { padding: 24px 20px; }
+  }
+</style>
+
+<div class="wrapper">
+  <div class="email">
+
+    <div class="header">
+      <div class="logo">CERCOM<span>LAB</span></div>
+      <div class="header-badge">Solicitud recibida</div>
+    </div>
+
+    <div class="body">
+
+      <div class="intro">
+        Se ha recibido una nueva solicitud de evaluación y certificación de competencias laborales el día
+        <strong>${formattedDate}</strong>.
+      </div>
+
+      <div class="section-label">1 · Datos personales</div>
+
+      <div class="field accent" style="margin-bottom: 8px;">
+        <div class="field-label">Nombre completo</div>
+        <div class="field-value"><strong>${fullName || 'N/A'}</strong></div>
+      </div>
+
+      <div class="grid grid-3-2">
+        <div class="field">
+          <div class="field-label">Identificación</div>
+          <div class="field-value">${docLabel || 'N/A'} · ${documentNumber || 'N/A'}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Celular</div>
+          <div class="field-value">${cellphone || 'N/A'}</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div class="field">
+          <div class="field-label">Nacimiento</div>
+          <div class="field-value">${birthDate || 'N/A'} · ${birthPlace || 'N/A'}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Expedición</div>
+          <div class="field-value">${expeditionDate || 'N/A'} · ${expeditionPlace || 'N/A'}</div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top: 8px;">
+        <div class="field-label">Ubicación</div>
+        <div class="field-value">${address || 'N/A'}, ${residencePlace || 'N/A'} — ${city || 'N/A'}, ${department || 'N/A'}</div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div class="field">
+          <div class="field-label">Género / RH</div>
+          <div class="field-value">${gender || 'N/A'} · ${rh || 'N/A'}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Correo electrónico</div>
+          <div class="field-value">${email || 'N/A'}</div>
+        </div>
+      </div>
+
+      <div class="section-label">2 · Perfil académico y laboral</div>
+
+      <div class="grid grid-2">
+        <div class="field">
+          <div class="field-label">Nivel de educación</div>
+          <div class="field-value">${educationLevel || 'N/A'}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Título / Grado</div>
+          <div class="field-value">${degreeTitle || 'N/A'}</div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top: 8px;">
+        <div class="field-label">Institución educativa</div>
+        <div class="field-value">${institutionName || 'N/A'}</div>
+      </div>
+
+      <div class="grid grid-6-4" style="margin-top: 8px;">
+        <div class="field">
+          <div class="field-label">Situación laboral</div>
+          <div class="field-value">${employmentStatus || 'N/A'}${companyName ? ' · ' + companyName : ''}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Experiencia</div>
+          <div class="field-value">${experienceValue || '0'} ${experienceUnit || 'meses'}</div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top: 8px;">
+        <div class="field-label">Profesión / Oficio</div>
+        <div class="field-value">${profession || 'N/A'}</div>
+      </div>
+
+      <div class="field danger" style="margin-top: 8px; display: ${hasSpecialNeeds === 'SI' ? 'block' : 'none'};">
+        <div class="field-label">Necesidades especiales</div>
+        <div class="field-value">${specialNeedsDescription || 'No especificada'}</div>
+      </div>
+
+      <div class="section-label">3 · Detalles de la solicitud</div>
+
+      <div class="field accent" style="margin-bottom: 8px;">
+        <div class="field-label">Tipo de trámite</div>
+        <div class="field-value"><strong>${requestType || 'N/A'}</strong></div>
+      </div>
+
+      <div class="field" style="margin-bottom: 8px;">
+        <div class="field-label">Esquema de certificación</div>
+        <div class="field-value">${schemeLabel || 'N/A'}</div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="field">
+          <div class="field-label">Modalidad</div>
+          <div class="field-value">${modality || 'N/A'}</div>
+        </div>
+        <div class="field">
+          <div class="field-label">Tipo de estudio</div>
+          <div class="field-value">${certificationStudyType || '—'}</div>
+        </div>
+      </div>
+
+      <div class="section-label">4 · Firma del solicitante</div>
+
+      <div class="sig-box">
+        <div class="sig-placeholder">[ Imagen de firma digital aquí ]</div>
+        <div class="sig-line">
+          <div class="sig-name">${fullName || 'N/A'}</div>
+          <div class="sig-doc">${docLabel || 'CC'}: ${documentNumber || 'N/A'}</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">CERCOMLAB S.A.S.</div>
+      <div class="footer-sub">Organismo de Certificación de Personas<br>Carrera 48 No. 76 D Sur - 52 Of. 305, Sabaneta, Antioquia</div>
+      <div class="footer-note">Mensaje automático · No responder a este correo</div>
+    </div>
+
+  </div>
+</div>

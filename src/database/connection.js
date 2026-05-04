@@ -62,11 +62,13 @@ export const testConnection = async () => {
         const conn1 = await pool.getConnection();
         await conn1.query("SELECT 1");
         conn1.release();
+        logger.info("✓ Conexión exitosa a la base de datos Principal.");
 
         // Probar conexión nueva
         const conn2 = await poolNew.getConnection();
         await conn2.query("SELECT 1");
         conn2.release();
+        logger.info("✓ Conexión exitosa a la base de datos Nueva.");
 
         return true;
     } catch (error) {
